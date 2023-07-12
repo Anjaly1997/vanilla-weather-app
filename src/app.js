@@ -22,8 +22,9 @@ function displayTemperature(response)
     let dateElement = document.querySelector('#date');
     let iconElement = document.querySelector('#icon');
 
+    celciusTemperature = response.data.temperature.current;
 
-    temperatureElement.innerHTML = Math.round(response.data.temperature.current);
+    temperatureElement.innerHTML = Math.round(celciusTemperature);
     cityElement.innerHTML = response.data.city;
     descriptionElement.innerHTML = response.data.condition.description;
     humidityElement.innerHTML = response.data.temperature.humidity;
@@ -43,6 +44,31 @@ event.preventDefault();
 let inputCityElement = document.querySelector('#city-input');
 search(inputCityElement.value);
 }
-search('Paris')
+function displayFahrenheitTemperature(event){
+    event.preventDefault();
+    let fahrenheitTemperature = (celciusTemperature * 9 )/5 + 32;
+    let temperatureElement=document.querySelector('#temperature');
+    celciusElement.classList.remove('active');
+    fahrenheitElement.classList.add('active');   
+    temperatureElement.innerHTML =Math.round(fahrenheitTemperature);   
+}
+function displayCelciusTemperature(event){
+    event.preventDefault();
+    let temperatureElement=document.querySelector('#temperature');
+    temperatureElement.innerHTML =Math.round(celciusTemperature);
+    fahrenheitElement.classList.remove('active');
+    celciusElement.classList.add('active');   
+}
+celciusTemperature = null;
+
 let form = document.querySelector('#search-form');
-form.addEventListener("submit",handleSubmit)
+form.addEventListener("submit",handleSubmit);
+
+let fahrenheitElement = document.querySelector('#fahrenheit-link');
+fahrenheitElement.addEventListener('click',displayFahrenheitTemperature);
+
+let celciusElement = document.querySelector('#celcius-link');
+celciusElement.addEventListener('click',displayCelciusTemperature);
+
+
+search('Paris');

@@ -2,6 +2,7 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
 }
+
 body .weather-app-wrapper{
     max-width: 600px; 
     margin: 30px auto;
@@ -36,14 +37,16 @@ body .weather-app-wrapper{
 .weather-app li::first-letter{
     text-transform: capitalize;
 }
-
+.weather-app a{
+    text-decoration: none;   
+   }
 .overview{
     margin-bottom: 20px;
 }
 .weather-temperature img{
     margin-right: 5px;
-    height: 64px;
-    width: 64px;
+    height: 60px;
+    width: 60px;
 }
 .weather-temperature strong{
     color: rgb(33,33,33);
@@ -55,4 +58,8 @@ body .weather-app-wrapper{
     position: relative;
     font-size: 16px;
     top: -34px;
+}
+.weather-temperature .active{
+    color: rgb(135, 135, 135);
+   cursor: default;
 }
