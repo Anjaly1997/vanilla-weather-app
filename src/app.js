@@ -14,14 +14,13 @@ function formatDate(timestamp){
 }
 function displayTemperature(response)
 {
-    console.log(response.data.condition.description);
     let temperatureElement = document.querySelector('#temperature');
     let cityElement = document.querySelector('#city');
     let descriptionElement = document.querySelector('#description');
     let humidityElement = document.querySelector('#humidity');
     let windElement = document.querySelector('#wind');
     let dateElement = document.querySelector('#date');
-    
+
     temperatureElement.innerHTML = Math.round(response.data.temperature.current);
     cityElement.innerHTML = response.data.city;
     descriptionElement.innerHTML = response.data.condition.description;
