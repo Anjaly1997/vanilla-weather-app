@@ -12,6 +12,26 @@ function formatDate(timestamp){
     let day = days[date.getDay()];
     return `${day} ${hours}:${minutes}`;
 }
+function displayForecast(){
+    let foreastElement = document.querySelector('#forecast');
+    let forecastHTML = `<div class="row">`;
+    let days = ['Thu', 'Fri','Sat','Sun','Mon','Tue',];
+    days.forEach(function(day){
+        forecastHTML +=`
+        <div class="col-2">
+            <div class="weather-forecast-date">${day}</div>
+            <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"  alt="" width="50
+            ">
+            <span class="weather-forecast-temperature-max">18°</span>
+            <span class="weather-forecast-temperature-min">12°</span>
+        </div>
+    `;
+    })
+   
+forecastHTML =forecastHTML + `</div>`;
+    foreastElement.innerHTML = forecastHTML;
+    console.log(forecastHTML);
+}
 function displayTemperature(response)
 {
     let temperatureElement = document.querySelector('#temperature');
@@ -32,7 +52,7 @@ function displayTemperature(response)
     dateElement.innerHTML = formatDate(response.data.time * 1000);
     iconElement.setAttribute('src',`http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
     iconElement.setAttribute('alt',response.data.condition.description)
-    console.log(response.data.condition.description);
+    
     
 }
 function search(city){
@@ -62,6 +82,7 @@ function displayCelciusTemperature(event){
 }
 celciusTemperature = null;
 
+
 let form = document.querySelector('#search-form');
 form.addEventListener("submit",handleSubmit);
 
@@ -71,5 +92,5 @@ fahrenheitElement.addEventListener('click',displayFahrenheitTemperature);
 let celciusElement = document.querySelector('#celcius-link');
 celciusElement.addEventListener('click',displayCelciusTemperature);
 
-
 search('Paris');
+displayForecast();
