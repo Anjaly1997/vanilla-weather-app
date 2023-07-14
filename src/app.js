@@ -12,21 +12,30 @@ function formatDate(timestamp){
     let day = days[date.getDay()];
     return `${day} ${hours}:${minutes}`;
 }
+function formatDay(timestamp){
+    let date = new Date(timestamp * 1000);
+    let days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+    let day = days[date.getDay()];
+    return day;
+}
 function displayForecast(response){
-    console.log(response.data.daily);
+    let forecast = response.data.daily;
     let foreastElement = document.querySelector('#forecast');
     let forecastHTML = `<div class="row">`;
-    let days = ['Thu', 'Fri','Sat','Sun','Mon','Tue',];
-    days.forEach(function(day){
-        forecastHTML +=`
-        <div class="col-2">
-            <div class="weather-forecast-date">${day}</div>
-            <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"  alt="" width="50
-            ">
-            <span class="weather-forecast-temperature-max">18°</span>
-            <span class="weather-forecast-temperature-min">12°</span>
-        </div>
-    `;
+
+    forecast.forEach(function(forecastDay,index){
+        if (index<6){
+            forecastHTML +=`
+            <div class="col-2">
+                <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
+                <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.condition.icon}.png"  alt="" width="50
+                ">
+                <span class="weather-forecast-temperature-max">${Math.round(forecastDay.temperature.maximum)}°</span>
+                <span class="weather-forecast-temperature-min">${Math.round(forecastDay.temperature.minimum)}°</span>
+            </div>
+        `;
+        }
+      
     })
    
 forecastHTML =forecastHTML + `</div>`;
@@ -34,7 +43,6 @@ forecastHTML =forecastHTML + `</div>`;
     
 }
 function forecast(coordinates){
-    console.log(coordinates.lon);
     let apiKey ='9b83e8ad2ddeet40240oc805fd6709a7';
     let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(displayForecast);
