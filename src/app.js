@@ -81,32 +81,9 @@ event.preventDefault();
 let inputCityElement = document.querySelector('#city-input');
 search(inputCityElement.value);
 }
-function displayFahrenheitTemperature(event){
-    event.preventDefault();
-    let fahrenheitTemperature = (celciusTemperature * 9 )/5 + 32;
-    let temperatureElement=document.querySelector('#temperature');
-    celciusElement.classList.remove('active');
-    fahrenheitElement.classList.add('active');   
-    temperatureElement.innerHTML =Math.round(fahrenheitTemperature);   
-}
-function displayCelciusTemperature(event){
-    event.preventDefault();
-    let temperatureElement=document.querySelector('#temperature');
-    temperatureElement.innerHTML =Math.round(celciusTemperature);
-    fahrenheitElement.classList.remove('active');
-    celciusElement.classList.add('active');   
-}
-celciusTemperature = null;
-
 
 let form = document.querySelector('#search-form');
 form.addEventListener("submit",handleSubmit);
-
-let fahrenheitElement = document.querySelector('#fahrenheit-link');
-fahrenheitElement.addEventListener('click',displayFahrenheitTemperature);
-
-let celciusElement = document.querySelector('#celcius-link');
-celciusElement.addEventListener('click',displayCelciusTemperature);
 
 search('Paris');
 displayForecast();
